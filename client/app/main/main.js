@@ -8,3 +8,5 @@ angular.module('testyApp')
         controller: 'MainCtrl'
       });
   });
+
+  //resolve http get for job and store it in scope

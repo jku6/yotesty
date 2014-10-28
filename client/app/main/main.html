@@ -1,49 +1,72 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
+<div id="elementId">
+  <div ng-include="'components/navbar/navbar.html'"></div>
 
 
-<div class="container">
-  {{jobData}}
+  <div class="container">
+    {{jobData}}
+  </div>
+
+  <div id="tooltip"></div><!-- div to hold tooltip. -->
+  <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+  <script>
+
+
+    var $element = $('#elementId');
+
+    var scope = angular.element($element).scope();
+
+    function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+      return "<h4>"+n+"</h4><table>"+
+        "<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
+        "<tr><td>Average</td><td>"+(d.avg)+"</td></tr>"+
+        "<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
+        "</table>";
+    }
+    
+    var sampleData ={}; /* Sample random data. */ 
+    ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+    "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+    "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
+    "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
+    "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
+      .forEach(function(d){ 
+        var low=Math.round(100*Math.random()), 
+          mid=Math.round(100*Math.random()), 
+          high=Math.round(100*Math.random());
+        sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
+            avg:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)}; 
+      });
+    console.log(sampleData);
+
+    var newData = {};
+
+    console.log(scope.jobData);
+
+    
+
+
+    // var dataArray = window.jobData;
+    // console.log(window.jobData);
+
+    // for (i = 0; i < dataArray.length; i++) {
+    //   newData[dataArray[i][0]] = {"avg":dataArray[i][1],"high":dataArray[i][1],"low":dataArray[i][1]}
+    // }
+    // console.log(newData);
+
+
+    /* draw states on id #statesvg */ 
+    uStates.draw("#statesvg", sampleData, tooltipHtml);
+
+
+    // var url = "http://api.glassdoor.com/api/api.htm?t.p=25924&t.k=fib3ZtVEqg3&userip=0.0.0.0&useragent=&format=json&v=1&action=jobs-stats&returnStates=true&admLevelRequested=1&jt=";
+
+    // var request = require('request');
+
+    // request(url+"analyst", function(error, response, body) {
+    //   if (!error && response.statusCode === 200) {
+    //     console.log(JSON.parse(body));
+    //   }
+    // })
+  </script>
 </div>
-
-<div id="tooltip"></div><!-- div to hold tooltip. -->
-<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
-<script>
-  function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
-    return "<h4>"+n+"</h4><table>"+
-      "<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
-      "<tr><td>Average</td><td>"+(d.avg)+"</td></tr>"+
-      "<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
-      "</table>";
-  }
-  
-  var sampleData ={}; /* Sample random data. */ 
-  ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
-  "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
-  "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
-  "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
-  "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-    .forEach(function(d){ 
-      var low=Math.round(100*Math.random()), 
-        mid=Math.round(100*Math.random()), 
-        high=Math.round(100*Math.random());
-      sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
-          avg:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)}; 
-    });
-  console.log(sampleData);
-
-  var newData = {};  
-  /* draw states on id #statesvg */ 
-  uStates.draw("#statesvg", sampleData, tooltipHtml);
-
-
-  // var url = "http://api.glassdoor.com/api/api.htm?t.p=25924&t.k=fib3ZtVEqg3&userip=0.0.0.0&useragent=&format=json&v=1&action=jobs-stats&returnStates=true&admLevelRequested=1&jt=";
-
-  // var request = require('request');
-
-  // request(url+"analyst", function(error, response, body) {
-  //   if (!error && response.statusCode === 200) {
-  //     console.log(JSON.parse(body));
-  //   }
-  // })
-</script>
 
