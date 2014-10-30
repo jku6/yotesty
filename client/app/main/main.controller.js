@@ -21,6 +21,7 @@ angular.module('testyApp')
       // window.jobData = dataobj;
     }).
     error(function(data, status, headers, config) {
+      // $scope.jobData = 0;
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });

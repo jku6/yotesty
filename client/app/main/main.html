@@ -14,6 +14,8 @@
     var $element = $('#elementId');
 
     var scope = angular.element($element).scope();
+    
+    console.log(scope);
 
     function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
       return "<h4>"+n+"</h4><table>"+
@@ -36,13 +38,13 @@
         sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
             avg:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)}; 
       });
-    console.log(sampleData);
+    // console.log(sampleData);
 
     var newData = {};
 
-    console.log(scope.jobData);
+    // console.log('{{jobData}}');
 
-    
+
 
 
     // var dataArray = window.jobData;
