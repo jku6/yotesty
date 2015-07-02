@@ -13,6 +13,7 @@ angular.module('testyApp')
     // ...
 
     var meaningOfLife = 42;
+    //test
 
     // Public API here
     return {
